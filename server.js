@@ -25,6 +25,3 @@ mongoose
 
 app.use("/api/auth", authRoutes);
 app.use("/api", postRoutes);
-
-// initIO(server); // Mova para dentro do then de mongoose.connect
-// getIO(); // Remova se não for necessário imediatamente
