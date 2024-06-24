@@ -80,7 +80,7 @@ exports.refreshToken = async (req, res) => {
     return res.status(401).json({ message: "Refresh token required" });
   }
   try {
-    const decoded = jwt.verify(refreshToken,  process.env.REFRESH_SECRET);
+    const decoded = jwt.verify(refreshToken, process.env.REFRESH_SECRET);
     const user = await User.findById(decoded.id);
     if (!user) {
       return res.status(404).json({ message: "User not found" });
@@ -99,6 +99,52 @@ exports.getUserProfile = async (req, res) => {
       return res.status(404).json({ message: "User not found" });
     }
     res.status(200).json(user);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+exports.getUsers = async (req, res) => {
+  try {
+    const users = await User.find().select("-password");
+    if (users.length < 1) {
+      return res.status(404).json({ message: "No users found" });
+    }
+    res.status(200).json(users);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+exports.deleteUser = async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    await User.deleteOne({ _id: req.params.id });
+    res.status(200).json({ message: "User deleted", user });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+exports.updateUser = async (req, res) => {
+  const { id } = req?.params;
+  const { username, email, name, surname } = req.body;
+
+  if (!username || !email || !name || !surname) {
+    return res.status(400).json({ message: "All fields are required" });
+  }
+
+  try {
+    const user = await User.findById(id);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    await User.updateOne({ _id: id }, { username, email, name, surname });
+    res.status(200).json({ message: "User updated" });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
