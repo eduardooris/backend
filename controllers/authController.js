@@ -14,7 +14,7 @@ const generateTokens = (user) => {
 
 exports.register = async (req, res) => {
   const { username, email, password, name, surname } = req.body;
-
+  console.log(req.body)
   try {
     let user = await User.findOne({ username });
     if (user) {
@@ -103,6 +103,18 @@ exports.getUserProfile = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
+exports.getUserById = async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id).select("-password");
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    res.status(200).json(user);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+}
 
 exports.getUsers = async (req, res) => {
   try {
