@@ -142,7 +142,7 @@ exports.deleteUser = async (req, res) => {
 };
 
 exports.updateUser = async (req, res) => {
-  const { id } = req?.params;
+  const { id } = req.params;
   const { username, email, name, surname } = req.body;
 
   if (!username || !email || !name || !surname) {
