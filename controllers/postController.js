@@ -73,7 +73,7 @@ exports.deletePost = async (req, res) => {
 };
 
 exports.updatePost = async (req, res) => {
-  const { id } = req?.params;
+  const { id } = req.params;
   const { content } = req.body;
 
   if (!content) {
