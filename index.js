@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const authRoutes = require("./routes/authRoutes");
 const postRoutes = require("./routes/postRoutes");
 const productRoutes = require("./routes/productRoutes");
+const todoRoutes = require("./routes/todoRoutes");
 const { initIO, getIO } = require("./controllers/socket");
 const cors = require("cors");
 const config = require("./config");
@@ -27,4 +28,5 @@ mongoose
 app.use("/api/auth", authRoutes);
 app.use("/api", postRoutes);
 app.use("/api", productRoutes);
+app.use('/api', todoRoutes)
 
