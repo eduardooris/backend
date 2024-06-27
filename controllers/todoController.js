@@ -31,7 +31,6 @@ exports.createTodo = async (req, res) => {
         const todo = await Todo.create({ title, description, status, dueDate, priority, createdBy: req.user.id });
         res.status(201).json({ message: "Tarefa criada.", todo });
     } catch (error) {
-        console.log(error);
         res.status(500).json({ error: "Erro ao criar tarefa." });
     }
 }
