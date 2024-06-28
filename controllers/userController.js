@@ -15,24 +15,18 @@ exports.getUsersByUsername = async (req, res) => {
 
 exports.sendFriendRequest = async (req, res) => {
     try {
-        const { userId, friendId } = req.body;
-
-        if (!userId || !friendId) {
-            return res.status(400).json({ message: "User ID and Friend ID are required" });
+        const { id } = req.body;
+        const userId = req.user.id;
+        if (!id) {
+            return res.status(400).json({ message: "Friend ID are required" });
         }
 
         // Verifique se os IDs são válidos
-        if (!mongoose.Types.ObjectId.isValid(userId) || !mongoose.Types.ObjectId.isValid(friendId)) {
-            return res.status(400).json({ message: "Invalid User ID or Friend ID" });
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            return res.status(400).json({ message: "Invalid friend ID" });
         }
 
-        // Encontre os usuários
-        const user = await User.findById(userId);
-        const friend = await User.findById(friendId);
-
-        if (!user) {
-            return res.status(404).json({ message: "User not found" });
-        }
+        const friend = await User.findById(id);
 
         if (!friend) {
             return res.status(404).json({ message: "Friend not found" });
@@ -55,14 +49,14 @@ exports.sendFriendRequest = async (req, res) => {
 
 exports.acceptFriendRequest = async (req, res) => {
     try {
-        const { userId, friendId } = req.body;
-
-        if (!userId || !friendId) {
-            return res.status(400).json({ message: "User ID and Friend ID are required" });
+        const { friendId } = req.body;
+        const userId = req.user.id;
+        if (!friendId) {
+            return res.status(400).json({ message: "Friend ID are required" });
         }
 
         // Verifique se os IDs são válidos
-        if (!mongoose.Types.ObjectId.isValid(userId) || !mongoose.Types.ObjectId.isValid(friendId)) {
+        if (!mongoose.Types.ObjectId.isValid(friendId)) {
             return res.status(400).json({ message: "Invalid User ID or Friend ID" });
         }
 
@@ -70,9 +64,6 @@ exports.acceptFriendRequest = async (req, res) => {
         const user = await User.findById(userId);
         const friend = await User.findById(friendId);
 
-        if (!user) {
-            return res.status(404).json({ message: "User not found" });
-        }
 
         if (!friend) {
             return res.status(404).json({ message: "Friend not found" });
