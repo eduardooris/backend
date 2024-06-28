@@ -5,6 +5,7 @@ const authRoutes = require("./routes/authRoutes");
 const postRoutes = require("./routes/postRoutes");
 const productRoutes = require("./routes/productRoutes");
 const todoRoutes = require("./routes/todoRoutes");
+const userRoutes = require("./routes/userRoutes");
 const { initIO, getIO } = require("./controllers/socket");
 const cors = require("cors");
 const config = require("./config");
@@ -29,4 +30,5 @@ app.use("/api/auth", authRoutes);
 app.use("/api", postRoutes);
 app.use("/api", productRoutes);
 app.use('/api', todoRoutes)
+app.use("/api/user", userRoutes);
 
