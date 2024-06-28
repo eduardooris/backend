@@ -51,7 +51,7 @@ exports.register = async (req, res) => {
       },
     });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ error: "Erro ao registrar usuário." })
   }
 };
 
@@ -70,7 +70,7 @@ exports.login = async (req, res) => {
     const tokens = generateTokens(user);
     res.status(200).json(tokens);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ error: "Erro ao fazer login." });
   }
 };
 
@@ -100,7 +100,7 @@ exports.getUserProfile = async (req, res) => {
     }
     res.status(200).json(user);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ error: "Erro ao buscar perfil" });
   }
 };
 
@@ -112,7 +112,7 @@ exports.getUserById = async (req, res) => {
     }
     res.status(200).json(user);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ error: "Erro ao buscar usuário" });
   }
 }
 
@@ -124,7 +124,7 @@ exports.getUsers = async (req, res) => {
     }
     res.status(200).json(users);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ error: "Erro ao buscar usuários" });
   }
 };
 
@@ -137,7 +137,7 @@ exports.deleteUser = async (req, res) => {
     await User.deleteOne({ _id: req.params.id });
     res.status(200).json({ message: "User deleted", user });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ error: "Erro ao deletar usuário" });
   }
 };
 
@@ -158,7 +158,7 @@ exports.updateUser = async (req, res) => {
     await User.updateOne({ _id: id }, { username, email, name, surname });
     res.status(200).json({ message: "User updated" });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ error: "Erro ao atualizar usuário" });
   }
 };
 

@@ -5,7 +5,7 @@ exports.getProducts = async (req, res) => {
         const products = await Product.find()
         res.status(200).json(products)
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        res.status(500).json({ error: "Erro ao buscar produtos." });
     }
 }
 
@@ -17,7 +17,7 @@ exports.getProduct = async (req, res) => {
         }
         res.status(200).json(product)
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        res.status(500).json({ error: "Erro ao buscar produto." });
     }
 }
 
@@ -31,7 +31,7 @@ exports.createProduct = async (req, res) => {
         const product = await Product.create({ name, description, price, createdBy: req.user.id })
         res.status(201).json({ message: "Product created", product })
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        res.status(500).json({ error: "Erro ao cadastrar produto" });
     }
 }
 
@@ -52,7 +52,7 @@ exports.updateProduct = async (req, res) => {
         await Product.updateOne({ _id: id }, { name, description, price });
         res.status(200).json({ message: "Product updated" });
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        res.status(500).json({ error: "Erro ao atualizar produto." });
     }
 }
 
@@ -65,7 +65,7 @@ exports.deleteProduct = async (req, res) => {
         await Product.deleteOne({ _id: req.params.id });
         res.status(200).json({ message: "Product deleted", product });
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        res.status(500).json({ error: "Erro ao deletar produto." });
     }
 }
 
@@ -77,6 +77,6 @@ exports.getProductsByUser = async (req, res) => {
         }
         res.status(200).json(products)
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        res.status(500).json({ error: "Erro ao buscar produtos." });
     }
 }

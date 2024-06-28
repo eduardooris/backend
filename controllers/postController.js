@@ -7,7 +7,7 @@ exports.createPost = async (req, res) => {
     await post.save();
     res.status(201).json(post);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({error: "Erro ao criar post."});
   }
 };
 
@@ -26,7 +26,7 @@ exports.likePost = async (req, res) => {
     await post.save();
     res.status(200).json(post);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ error: "Erro no like" });
   }
 };
 
@@ -40,7 +40,7 @@ exports.getAllPosts = async (req, res) => {
     }
     res.status(200).json(posts);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ error: "Erro ao puxar posts" });
   }
 };
 
@@ -55,7 +55,7 @@ exports.commentPost = async (req, res) => {
     await post.save();
     res.status(201).json(post);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ error: "Erro ao comentar" });
   }
 };
 
@@ -68,7 +68,7 @@ exports.deletePost = async (req, res) => {
     await Post.deleteOne({ _id: req.params.id });
     res.status(200).json({ message: "Post deleted", post });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ error: "Erro ao deletar post" });
   }
 };
 
